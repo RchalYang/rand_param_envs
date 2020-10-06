@@ -1,10 +1,10 @@
 import numpy as np
-from rand_param_envs.base import RandomEnv
+from rand_param_envs.base import RandomEnv, default_rand_params
 from rand_param_envs.gym import utils
 
 class HopperRandParamsEnv(RandomEnv, utils.EzPickle):
-    def __init__(self, log_scale_limit=3.0):
-        RandomEnv.__init__(self, log_scale_limit, 'hopper.xml', 4)
+    def __init__(self, rand_params=default_rand_params, log_scale_limit=3.0):
+        RandomEnv.__init__(self, log_scale_limit, 'hopper.xml', 4, rand_params=default_rand_params)
         utils.EzPickle.__init__(self)
 
     def _step(self, a):
@@ -47,7 +47,11 @@ if __name__ == "__main__":
         env.reset()
         env.set_task(np.random.choice(tasks))
         print(env.model.body_mass)
+        task = env.get_task()
+        print(env.get_task())
+        for item in task:
+            print(item, task[item].flatten().shape)
+            print(np.prod(task[item].shape))
         for _ in range(100):
-            env.render()
+            # env.render()
             env.step(env.action_space.sample())  # take a random action
-

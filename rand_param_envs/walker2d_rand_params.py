@@ -1,10 +1,10 @@
 import numpy as np
-from rand_param_envs.base import RandomEnv
+from rand_param_envs.base import RandomEnv, default_rand_params
 from rand_param_envs.gym import utils
 
 class Walker2DRandParamsEnv(RandomEnv, utils.EzPickle):
-    def __init__(self, log_scale_limit=3.0):
-        RandomEnv.__init__(self, log_scale_limit, 'walker2d.xml', 5)
+    def __init__(self, rand_params=default_rand_params, log_scale_limit=3.0):
+        RandomEnv.__init__(self, log_scale_limit, 'walker2d.xml', 5, rand_params=rand_params)
         utils.EzPickle.__init__(self)
 
     def _step(self, a):
@@ -45,8 +45,14 @@ if __name__ == "__main__":
     while True:
         env.reset()
         env.set_task(np.random.choice(tasks))
-        print(env.model.body_mass)
+        task = env.get_task()
+        print(env.get_task())
+        for item in task:
+            print(item, task[item].flatten().shape)
+            print(np.prod(task[item].shape))
+            # np.flatt
+        # print(env.model.body_mass)
         for _ in range(100):
-            env.render()
+            # env.render()
             env.step(env.action_space.sample())  # take a random action
 

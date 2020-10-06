@@ -47,6 +47,8 @@ class MetaEnv(Env):
         """
         pass
 
+default_rand_params =  ['body_mass', 'dof_damping', 'body_inertia', 'geom_friction']
+
 class RandomEnv(MetaEnv, MujocoEnv):
     """
     This class provides functionality for randomizing the physical parameters of a mujoco model
@@ -58,7 +60,7 @@ class RandomEnv(MetaEnv, MujocoEnv):
     RAND_PARAMS = ['body_mass', 'dof_damping', 'body_inertia', 'geom_friction']
     RAND_PARAMS_EXTENDED = RAND_PARAMS + ['geom_size']
 
-    def __init__(self, log_scale_limit, file_name, *args, rand_params=RAND_PARAMS, **kwargs):
+    def __init__(self, log_scale_limit, file_name, *args, rand_params=default_rand_params, **kwargs):
         MujocoEnv.__init__(self, file_name, 4)
         assert set(rand_params) <= set(self.RAND_PARAMS_EXTENDED), \
             "rand_params must be a subset of " + str(self.RAND_PARAMS_EXTENDED)
