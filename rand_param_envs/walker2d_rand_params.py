@@ -41,7 +41,11 @@ class Walker2DRandParamsEnv(RandomEnv, utils.EzPickle):
 if __name__ == "__main__":
 
     env = Walker2DRandParamsEnv()
-    tasks = env.sample_tasks(40)
+    tasks = env.sample_tasks(8)
+    print(tasks)
+    # print(type(tasks))
+    # print(tasks[0])
+    exit()
     while True:
         env.reset()
         env.set_task(np.random.choice(tasks))

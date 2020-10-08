@@ -4,7 +4,7 @@ from rand_param_envs.gym import utils
 
 class HopperRandParamsEnv(RandomEnv, utils.EzPickle):
     def __init__(self, rand_params=default_rand_params, log_scale_limit=3.0):
-        RandomEnv.__init__(self, log_scale_limit, 'hopper.xml', 4, rand_params=default_rand_params)
+        RandomEnv.__init__(self, log_scale_limit, 'hopper.xml', 4, rand_params=rand_params)
         utils.EzPickle.__init__(self)
 
     def _step(self, a):
